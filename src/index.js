@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { urlencoded } = require("express");
 const userRoutes = require("./controllers/user.routes");
+const calculatorRoutes = require("./controllers/calculator.routes");
 
 const connect = require("./config/db");
 
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRoutes);
+
+app.use("/calculate", calculatorRoutes);
 
 app.listen(port, async () => {
   await connect();

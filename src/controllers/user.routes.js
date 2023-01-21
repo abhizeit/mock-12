@@ -12,6 +12,7 @@ app.post("/register", async (req, res) => {
     const user = await User.create({ email, password: hashed });
     res.send({ error: false, data: user, message: "Singup Successful" });
   } catch (e) {
+    console.log(e.message);
     res.send({ error: true, message: "something went wrong" });
   }
 });
@@ -24,7 +25,7 @@ app.post("/login", async (req, res) => {
     if (!match) {
       res.send({ error: true, message: "Invalid Credentials" });
     } else {
-      const token = jwt.sign({ email }, process.env.SECRET_KEY);
+      const token = jwt.sign({ user }, process.env.SECRET_KEY);
       res.send({ error: false, token, message: "Login Successful" });
     }
   } catch (e) {
@@ -32,9 +33,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/getProfile/:id", async (req, res) => {
+app.get("/getProfile/", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ email });
     res.send({ error: false, user, messgae: "Profile fethced succesfully." });
   } catch (e) {
     res.send({ error: true, messgae: "Something went wrong." });
