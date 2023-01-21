@@ -33,9 +33,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/getProfile/", async (req, res) => {
+app.get("/getProfile/:id", async (req, res) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findById(req.params.id);
     res.send({ error: false, user, messgae: "Profile fethced succesfully." });
   } catch (e) {
     res.send({ error: true, messgae: "Something went wrong." });
