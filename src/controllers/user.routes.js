@@ -34,8 +34,10 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/getProfile/:id", async (req, res) => {
+  console.log("profile");
   try {
     const user = await User.findById(req.params.id);
+    console.log(user);
     res.send({ error: false, user, messgae: "Profile fethced succesfully." });
   } catch (e) {
     res.send({ error: true, messgae: "Something went wrong." });
